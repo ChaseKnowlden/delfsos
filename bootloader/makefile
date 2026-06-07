@@ -1,11 +1,11 @@
 output_dir = ../build
 
-all: bootloader.bin
+.PHONY: all stage1 clean
 
-bootloader.bin:
-	fasm bootloader.asm bootloader.bin
-	mv bootloader.bin $(output_dir)/bootloader.bin
+all: stage1
+
+stage1:
+	make -C stage1 all
 
 clean:
-	rm -f $(output_dir)/bootloader.bin
-
+	make -C stage1 clean

@@ -1,6 +1,6 @@
 output_dir = ../build
 utilities:
-	clang -Wall -Wextra -o mkboot mkboot.c
+	LANG=en_US.UTF-8 clang -Wall -Wextra -o mkboot mkboot.c
 	mv mkboot $(output_dir)/mkboot
 
 clean:

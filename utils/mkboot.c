@@ -1,9 +1,8 @@
-#include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <fcntl.h>
 #include <unistd.h>
 
 #define SECTOR_SIZE 512
@@ -50,13 +49,13 @@ int main(int argc, char **argv) {
             exit(-4);
         }
 
-        if (read_bytes == 0) {
+        if (read_bytes == 0){
             close(disk_fd);
             printf("Couldn't find magic bytes\n");
             exit(-4);
         }
 
-        if (data[0] == 0x5C && data[1] == 0x78) {
+        if (data[0] == 0xF4 && data[1] == 0x1C) {
             printf("Found MAGIC_BYTES @ sector %d\n", sec + 1);
             second_stage_sector = sec + 1;
             break;
@@ -70,7 +69,7 @@ int main(int argc, char **argv) {
         printf("Couldn't open bootloader\n");
         exit(-5);
     }
-    if(read(bootloader_fd, data, SECTOR_SIZE) == -1) {
+    if (read(bootloader_fd, data, SECTOR_SIZE) == -1) {
         printf("Couldn't read bootloader file\n");
     }
     close(bootloader_fd);
@@ -84,8 +83,8 @@ int main(int argc, char **argv) {
         printf("Couldn't open disk image for writing\n");
         exit(-6);
     }
-    
-    if (write(disk_fd, data, 0x1C0) <= 0) {
+
+    if (write(disk_fd, data, 0x1BF) <= 0) {
         printf("Couldn't write bootloader\n");
         close(disk_fd);
         exit(-7);

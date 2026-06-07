@@ -53,9 +53,9 @@ end if
     sub si, .relocate - .start
     mov di, 0x500
     mov cx, 128
-    repnz stosw
+    rep stosw
     mov cx, 256
-    repnz movsw
+    rep movsw
     jmp 0:.check_disk
 
 .check_disk:
@@ -145,7 +145,7 @@ printfunc:
 
 ; variables
 boot_drive:      db 0
-magic_bytes:     db 05Ch, 78h         ; 0x785C
+magic_bytes:     db 0F4h, 1Ch         ; 0xF41C
 stage_2_start:   dd 0xFFFFFFFF
 stage2_len:      dw 0xFFFF
 
